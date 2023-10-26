@@ -3,12 +3,35 @@
   "version": "1.0.0",
   "description": "This script can disable Devtool, help to secure your code",
   "source": "src/index.js",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/types/index.d.ts",
+  "files": [
+    "lib/",
+    "LICENSE"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "module": "./lib/es/index.js",
+      "import": "./lib/es/index.js",
+      "require": "./lib/commonjs/index.js",
+      "default": "./lib/es/index.js"
+    }
+  },
+
   "scripts": {
-    "start": "webpack serve --open --config webpack.config.js --mode development",
-    "build-js": "webpack --config webpack.config.js",
-    "build-es-js": "webpack --config webpack.es.config.js"
+    "build": "npm-run-all clean build:**",
+    "prepublishOnly": "npm run build",
+    "tsc": "tsc -p tsconfig.json",
+    "clean": "rimraf lib",
+    "build:types": "tsc --emitDeclarationOnly --sourceMap --declaration --module system --outDir lib/types",
+    "build:es": "rollup -c rollup.config.mjs --format es && rollup -c rollup.config.mjs --format es --environment production",
+    "build:cjs": "rollup -c rollup.config.mjs --format cjs && rollup -c rollup.config.mjs --format cjs --environment production",
+    "build:umd": "rollup -c rollup.config.mjs --format umd && rollup -c rollup.config.mjs --format umd --environment production",
+    "build:amd": "rollup -c rollup.config.mjs --format amd && rollup -c rollup.config.mjs --format amd --environment production",
+    "build:iife": "rollup -c rollup.config.mjs --format iife && rollup -c rollup.config.mjs --format iife --environment production"
   },
   "repository": {
     "type": "git",
@@ -35,11 +58,14 @@
   },
   "homepage": "https://github.com/DungGramer/disable-devtool#readme",
   "devDependencies": {
-    "copy-webpack-plugin": "^11.0.0",
-    "html-webpack-plugin": "^5.5.3",
-    "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^4.1.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
+    "yargs": "^17.7.2"
   }
 }
