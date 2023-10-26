@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es5",
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./lib/esm",
+    "alwaysStrict": true,
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "declaration": false,
+    "preserveConstEnums": true,
+    "downlevelIteration": true,
+    "lib": ["ES7", "dom"]
+  },
+  "include": ["./src"]
+}
