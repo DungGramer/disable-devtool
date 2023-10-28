@@ -13,14 +13,27 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./index.d.ts",
-      "module": "./lib/es/index.js",
-      "import": "./lib/es/index.js",
-      "require": "./lib/commonjs/index.js",
-      "default": "./lib/es/index.js"
+      "development": {
+        "types": "./types/index.d.ts",
+        "module": "./lib/es/index.js",
+        "import": "./lib/es/index.js",
+        "require": "./lib/commonjs/index.js",
+        "default": "./lib/es/index.js"
+      },
+      "production": {
+        "types": "./types/index.d.ts",
+        "module": "./lib/es/index.min.js",
+        "import": "./lib/es/index.min.js",
+        "require": "./lib/commonjs/index.min.js",
+        "default": "./lib/es/index.min.js"
+      },
+      "types": "./types/index.d.ts",
+      "module": "./lib/es/index.min.js",
+      "import": "./lib/es/index.min.js",
+      "require": "./lib/commonjs/index.min.js",
+      "default": "./lib/es/index.min.js"
     }
   },
-
   "scripts": {
     "build": "npm-run-all clean build:**",
     "prepublishOnly": "npm run build",
